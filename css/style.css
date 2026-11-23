@@ -66,29 +66,92 @@ input {
 
 /* ===== Header ===== */
 .header {
-  padding: 1.5rem 0;
+  padding: 2rem 0 1.5rem;
   border-bottom: 1px solid var(--slate);
+  overflow: hidden;
 }
 
 .header__inner {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  text-align: center;
+  gap: 0.4rem;
 }
 
+/* Logo: magical swish in, then a gentle shimmer */
 .logo {
-  font-size: 1.6rem;
+  font-size: 2.4rem;
   font-weight: 700;
-  color: var(--mint);
+  letter-spacing: 1px;
   text-decoration: none;
-  letter-spacing: 0.5px;
+  background: linear-gradient(
+    110deg,
+    var(--sage) 0%,
+    var(--mint) 35%,
+    #ffffff 50%,
+    var(--mint) 65%,
+    var(--sage) 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation:
+    logoSwish 1.2s cubic-bezier(0.22, 1, 0.36, 1) both,
+    logoShimmer 4s ease-in-out 1.2s infinite;
 }
 
+@keyframes logoSwish {
+  0% {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.92);
+    filter: blur(8px);
+    letter-spacing: 10px;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+    letter-spacing: 1px;
+  }
+}
+
+@keyframes logoShimmer {
+  0%   { background-position: 100% 0; }
+  50%  { background-position: 0% 0; }
+  100% { background-position: 100% 0; }
+}
+
+/* Tagline: two halves slide in from opposite sides */
 .tagline {
   color: var(--teal);
   font-style: italic;
+  font-size: 1.05rem;
+}
+
+.tagline__left,
+.tagline__right {
+  display: inline-block;
+  opacity: 0;
+}
+
+.tagline__left {
+  animation: slideFromLeft 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.8s forwards;
+}
+
+.tagline__right {
+  animation: slideFromRight 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.8s forwards;
+}
+
+@keyframes slideFromLeft {
+  from { opacity: 0; transform: translateX(-80px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideFromRight {
+  from { opacity: 0; transform: translateX(80px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
 /* ===== Buttons & Inputs ===== */
@@ -340,10 +403,10 @@ input::placeholder {
 }
 
 /* ===== Weather Themes (added by JS to body) ===== */
-body.theme-hot     { background: linear-gradient(180deg, #2a3a2a 0%, var(--navy) 60%); }
-body.theme-cold    { background: linear-gradient(180deg, #0b2a4a 0%, var(--navy) 60%); }
-body.theme-rainy   { background: linear-gradient(180deg, #1c3a3a 0%, var(--navy) 60%); }
-body.theme-mild    { background: linear-gradient(180deg, #23324a 0%, var(--navy) 60%); }
+body.theme-hot   { background: linear-gradient(180deg, #2a3a2a 0%, var(--navy) 60%); }
+body.theme-cold  { background: linear-gradient(180deg, #0b2a4a 0%, var(--navy) 60%); }
+body.theme-rainy { background: linear-gradient(180deg, #1c3a3a 0%, var(--navy) 60%); }
+body.theme-mild  { background: linear-gradient(180deg, #23324a 0%, var(--navy) 60%); }
 
 /* ===== Footer ===== */
 .footer {
@@ -356,9 +419,8 @@ body.theme-mild    { background: linear-gradient(180deg, #23324a 0%, var(--navy)
 
 /* ===== Responsive ===== */
 @media (max-width: 600px) {
-  .header__inner {
-    flex-direction: column;
-    text-align: center;
+  .logo {
+    font-size: 1.9rem;
   }
 
   .city-form,
@@ -372,5 +434,15 @@ body.theme-mild    { background: linear-gradient(180deg, #23324a 0%, var(--navy)
 
   .section-title {
     font-size: 1.5rem;
+  }
+}
+
+/* ===== Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  .logo,
+  .tagline__left,
+  .tagline__right {
+    animation: none;
+    opacity: 1;
   }
 }
