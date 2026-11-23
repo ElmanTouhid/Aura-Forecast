@@ -88,12 +88,12 @@
     </section>
 
     <!-- Today's Aura -->
-    <section id="aura" class="section">
+    <section id="aura" class="section aura" data-reveal>
       <div class="container">
-        <h2 class="section-title">Today's Aura</h2>
-        <p class="section-subtitle">Perfumes picked for the weather right now.</p>
+        <h2 class="section-title aura-title">Today's Aura</h2>
+        <p class="section-subtitle split-text">Perfumes picked for the weather right now.</p>
         <div id="aura-status" class="status"></div>
-        <div id="aura-grid" class="grid"></div>
+        <div id="aura-grid" class="grid wave-grid"></div>
       </div>
     </section>
 
@@ -116,7 +116,7 @@
         </div>
 
         <div id="explore-status" class="status"></div>
-        <div id="explore-grid" class="grid"></div>
+        <div id="explore-grid" class="grid wave-grid"></div>
       </div>
     </section>
 
@@ -125,16 +125,16 @@
       <div class="container">
         <h2 class="section-title">Your Favourites</h2>
         <div id="favourites-status" class="status"></div>
-        <div id="favourites-grid" class="grid"></div>
+        <div id="favourites-grid" class="grid wave-grid"></div>
       </div>
     </section>
 
   </main>
 
-  <!-- Perfume Modal -->
+  <!-- Perfume Pop-up -->
   <div id="modal" class="modal hidden">
     <div class="modal__overlay" id="modal-overlay"></div>
-    <div class="modal__content">
+    <div class="modal__content glass">
       <button id="modal-close" class="modal__close" aria-label="Close">&times;</button>
       <div id="modal-body"></div>
     </div>
