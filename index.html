@@ -9,6 +9,13 @@
 </head>
 <body>
 
+  <!-- Background glow orbs (make the glass effect visible) -->
+  <div class="bg-orbs" aria-hidden="true">
+    <span class="orb orb--1"></span>
+    <span class="orb orb--2"></span>
+    <span class="orb orb--3"></span>
+  </div>
+
   <!-- Header -->
   <header class="header">
     <div class="container header__inner">
@@ -25,19 +32,57 @@
     <!-- Weather Hero -->
     <section id="weather" class="section weather">
       <div class="container">
-        <form id="city-form" class="city-form">
+        <form id="city-form" class="city-form glass-form">
           <input type="text" id="city-input" placeholder="Search a city..." autocomplete="off">
-          <button type="submit" class="btn">Search</button>
+          <button type="submit" class="btn btn--glass">Search</button>
         </form>
 
         <div id="weather-status" class="status"></div>
 
-        <div id="weather-card" class="weather-card">
-          <h2 id="weather-location">Chittagong</h2>
-          <p id="weather-temp" class="weather-temp">--°C</p>
-          <p id="weather-condition">--</p>
-          <p id="weather-humidity">Humidity: --%</p>
-          <p id="weather-season" class="season-badge">--</p>
+        <div id="weather-card" class="weather-card glass">
+          <!-- Mini animated weather scene -->
+          <div id="weather-scene" class="weather-scene scene-clear" aria-hidden="true">
+            <div class="sun"></div>
+
+            <div class="cloud cloud--1"></div>
+            <div class="cloud cloud--2"></div>
+
+            <div class="rain">
+              <span style="--i:1"></span><span style="--i:2"></span><span style="--i:3"></span>
+              <span style="--i:4"></span><span style="--i:5"></span><span style="--i:6"></span>
+              <span style="--i:7"></span><span style="--i:8"></span><span style="--i:9"></span>
+              <span style="--i:10"></span><span style="--i:11"></span><span style="--i:12"></span>
+            </div>
+
+            <div class="snow">
+              <span style="--i:1"></span><span style="--i:2"></span><span style="--i:3"></span>
+              <span style="--i:4"></span><span style="--i:5"></span><span style="--i:6"></span>
+              <span style="--i:7"></span><span style="--i:8"></span><span style="--i:9"></span>
+              <span style="--i:10"></span>
+            </div>
+
+            <div class="bolt"></div>
+
+            <div class="fog">
+              <span></span><span></span><span></span>
+            </div>
+
+            <div class="person">
+              <div class="umbrella"></div>
+              <div class="umbrella-handle"></div>
+              <div class="head"></div>
+              <div class="body"></div>
+            </div>
+          </div>
+
+          <!-- Weather details -->
+          <div class="weather-info">
+            <h2 id="weather-location">Chittagong</h2>
+            <p id="weather-temp" class="weather-temp">--°C</p>
+            <p id="weather-condition">--</p>
+            <p id="weather-humidity">Humidity: --%</p>
+            <p id="weather-season" class="season-badge">--</p>
+          </div>
         </div>
       </div>
     </section>
