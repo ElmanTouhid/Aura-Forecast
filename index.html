@@ -98,21 +98,21 @@
     </section>
 
     <!-- Explore -->
-    <section id="explore" class="section">
+    <section id="explore" class="section explore" data-reveal>
       <div class="container">
-        <h2 class="section-title">Explore</h2>
+        <h2 class="section-title split-text split-text--drop">Explore</h2>
 
-        <form id="search-form" class="search-form">
+        <form id="search-form" class="search-form glass-search">
           <input type="text" id="search-input" placeholder="Search by name, note or house..." autocomplete="off">
-          <button type="submit" class="btn">Search</button>
+          <button type="submit" class="btn btn--glass">Search</button>
         </form>
 
         <div id="season-filters" class="filters">
-          <button class="filter-btn active" data-season="all">All</button>
-          <button class="filter-btn" data-season="spring">Spring</button>
-          <button class="filter-btn" data-season="summer">Summer</button>
-          <button class="filter-btn" data-season="autumn">Autumn</button>
-          <button class="filter-btn" data-season="winter">Winter</button>
+          <button class="filter-btn active" data-season="all" style="--i:0">All</button>
+          <button class="filter-btn" data-season="spring" style="--i:1">Spring</button>
+          <button class="filter-btn" data-season="summer" style="--i:2">Summer</button>
+          <button class="filter-btn" data-season="autumn" style="--i:3">Autumn</button>
+          <button class="filter-btn" data-season="winter" style="--i:4">Winter</button>
         </div>
 
         <div id="explore-status" class="status"></div>
@@ -144,7 +144,7 @@
   <footer class="footer">
     <div class="container">
       <p>Weather by Open-Meteo · Perfume data by Scento</p>
-      <p>Built by Elman Touhid · CSE-2340, IIUC</p>
+      <p>Built by Elman Touhid</p>
     </div>
   </footer>
 
