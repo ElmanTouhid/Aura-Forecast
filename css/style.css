@@ -67,8 +67,8 @@ input {
   animation: orbFloat 18s ease-in-out infinite alternate;
 }
 
-.orb--1 { width: 380px; height: 380px; background: var(--sage); top: -80px;   left: -100px; }
-.orb--2 { width: 320px; height: 320px; background: var(--teal); top: 220px;   right: -120px; animation-delay: -6s; }
+.orb--1 { width: 380px; height: 380px; background: var(--sage); top: -80px;    left: -100px; }
+.orb--2 { width: 320px; height: 320px; background: var(--teal); top: 220px;    right: -120px; animation-delay: -6s; }
 .orb--3 { width: 260px; height: 260px; background: var(--mint); bottom: -80px; left: 30%; animation-delay: -12s; opacity: 0.3; }
 
 @keyframes orbFloat {
@@ -199,16 +199,33 @@ input {
   transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
-.city-form input:focus,
-.search-form input:focus {
-  border-color: var(--sage);
-}
-
 input::placeholder {
   color: var(--text-muted);
 }
 
-/* ===== Liquid Glass: City Search ===== */
+/* ===== Liquid Glass Search Bars (city + explore) ===== */
+.glass-form input,
+.glass-search input {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 6px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 999px;
+  padding: 0.8rem 1.3rem;
+}
+
+.glass-form input:focus,
+.glass-search input:focus {
+  border-color: rgba(192, 223, 161, 0.6);
+  background: rgba(255, 255, 255, 0.11);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 0 4px rgba(159, 196, 144, 0.15),
+    0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* City search flips up on page load */
 .glass-form {
   transform-origin: center bottom;
   animation: flipUp 1s var(--smooth) 1.5s both;
@@ -220,23 +237,18 @@ input::placeholder {
   100% { opacity: 1; transform: perspective(700px) rotateX(0)      translateY(0); }
 }
 
-.glass-form input {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 6px 20px rgba(0, 0, 0, 0.25);
-  border-radius: 999px;
-  padding: 0.8rem 1.3rem;
+/* Explore search stretches open when scrolled into view */
+.glass-search {
+  opacity: 0;
 }
 
-.glass-form input:focus {
-  border-color: rgba(192, 223, 161, 0.6);
-  background: rgba(255, 255, 255, 0.11);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    0 0 0 4px rgba(159, 196, 144, 0.15),
-    0 8px 24px rgba(0, 0, 0, 0.3);
+.in-view .glass-search {
+  animation: searchStretch 0.9s var(--smooth) 0.45s forwards;
+}
+
+@keyframes searchStretch {
+  0%   { opacity: 0; scale: 0.4 1; filter: blur(10px); }
+  100% { opacity: 1; scale: 1 1;   filter: blur(0); }
 }
 
 .btn--glass {
@@ -587,8 +599,8 @@ input::placeholder {
 }
 
 @keyframes auraReveal {
-  0%   { opacity: 0; transform: scale(0.85); filter: blur(12px) drop-shadow(0 0 0 transparent); letter-spacing: 14px; }
-  100% { opacity: 1; transform: scale(1);    filter: blur(0) drop-shadow(0 0 12px rgba(192, 223, 161, 0.35)); letter-spacing: 0; }
+  0%   { opacity: 0; transform: scale(0.85); filter: blur(12px); letter-spacing: 14px; }
+  100% { opacity: 1; transform: scale(1);    filter: blur(0);    letter-spacing: 0; }
 }
 
 @keyframes auraFlow {
@@ -601,7 +613,7 @@ input::placeholder {
   50%      { filter: drop-shadow(0 0 22px rgba(192, 223, 161, 0.6)); }
 }
 
-/* ===== Today's Aura: Letter-by-letter subtitle ===== */
+/* ===== Letter-by-letter text (slides from left) ===== */
 .split-text .letter {
   display: inline-block;
   opacity: 0;
@@ -617,29 +629,123 @@ input::placeholder {
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* ===== Filters ===== */
+/* ===== Explore: letters drop in from above ===== */
+.split-text--drop {
+  font-size: 2.4rem;
+}
+
+.split-text--drop .letter {
+  transform: translateY(-50px) rotate(-12deg);
+}
+
+.in-view .split-text--drop .letter {
+  animation: letterDrop 0.7s var(--spring) forwards;
+  animation-delay: calc(var(--i) * 70ms);
+}
+
+@keyframes letterDrop {
+  0%   { opacity: 0; transform: translateY(-50px) rotate(-12deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+/* Each letter hops when you hover over it */
+.split-text--drop .letter:hover {
+  color: #ffffff;
+  text-shadow: 0 0 14px rgba(192, 223, 161, 0.8);
+}
+
+/* ===== Filters (liquid glass pills) ===== */
 .filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.6rem;
   margin-bottom: 1.5rem;
 }
 
 .filter-btn {
-  background: transparent;
-  color: var(--teal);
-  border: 1px solid var(--teal);
-  padding: 0.4rem 1rem;
+  position: relative;
+  overflow: hidden;
+  background: var(--glass-bg);
+  color: var(--mint);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 1.2rem;
   border-radius: 999px;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    transform 0.35s var(--spring),
+    background 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
 }
 
-.filter-btn:hover,
+/* Pills pop in one by one when Explore is scrolled into view */
+.explore .filter-btn {
+  opacity: 0;
+}
+
+.in-view .filter-btn {
+  animation: pillPop 0.6s var(--spring) forwards;
+  animation-delay: calc(0.7s + var(--i) * 90ms);
+}
+
+@keyframes pillPop {
+  0%   { opacity: 0; translate: 0 20px; scale: 0.6; }
+  100% { opacity: 1; translate: 0 0;    scale: 1; }
+}
+
+/* Light sweep on hover */
+.filter-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+}
+
+.filter-btn:hover::after {
+  animation: glassSweep 0.7s ease forwards;
+}
+
+.filter-btn:hover {
+  transform: translateY(-5px) scale(1.06);
+  border-color: rgba(192, 223, 161, 0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 10px 20px rgba(0, 0, 0, 0.3),
+    0 0 18px rgba(159, 196, 144, 0.45);
+}
+
+.filter-btn:active {
+  transform: translateY(-1px) scale(0.96);
+}
+
 .filter-btn.active {
-  background: var(--sage);
+  background: rgba(159, 196, 144, 0.85);
   border-color: var(--sage);
   color: var(--navy);
+  font-weight: 600;
+  animation-name: pillPop, activeRing;
+  animation-duration: 0.6s, 2.2s;
+  animation-timing-function: var(--spring), ease-out;
+  animation-iteration-count: 1, infinite;
+  animation-fill-mode: forwards, none;
+}
+
+.explore:not(.in-view) .filter-btn.active {
+  animation: none;
+}
+
+@keyframes activeRing {
+  0%   { box-shadow: 0 0 0 0 rgba(159, 196, 144, 0.55); }
+  100% { box-shadow: 0 0 0 12px rgba(159, 196, 144, 0); }
 }
 
 /* ===== Perfume Grid & Liquid Glass Cards ===== */
@@ -647,7 +753,7 @@ input::placeholder {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   gap: 1.2rem;
-  padding-top: 2rem; /* room for the wave to rise */
+  padding-top: 2rem;
 }
 
 .card {
@@ -665,14 +771,12 @@ input::placeholder {
     inset 0 1px 0 rgba(255, 255, 255, 0.25),
     0 10px 25px rgba(0, 0, 0, 0.3);
 
-  /* Wave values set by JavaScript */
-  transform: translateY(var(--lift, 0px)) scale(var(--scale, 1)) rotate(var(--tilt, 0deg));
+  transform: translateY(var(--lift, 0px)) scale(var(--scale, 1));
   transition:
     transform 0.55s var(--spring),
     box-shadow 0.4s ease,
     border-color 0.4s ease;
 
-  /* Entrance */
   animation: cardEnter 0.7s var(--smooth) both;
   animation-delay: calc(var(--i, 0) * 90ms);
 }
@@ -690,7 +794,6 @@ input::placeholder {
     0 0 30px rgba(159, 196, 144, 0.35);
 }
 
-/* Light sweep across the card at the wave's peak */
 .card::after {
   content: "";
   position: absolute;
@@ -883,7 +986,8 @@ body.theme-mild  { background: linear-gradient(180deg, #23324a 0%, var(--navy) 6
 /* ===== Responsive ===== */
 @media (max-width: 600px) {
   .logo { font-size: 1.9rem; }
-  .aura-title { font-size: 1.9rem; }
+  .aura-title,
+  .split-text--drop { font-size: 1.9rem; }
 
   .city-form,
   .search-form {
@@ -911,7 +1015,9 @@ body.theme-mild  { background: linear-gradient(180deg, #23324a 0%, var(--navy) 6
   .tagline__left,
   .tagline__right,
   .aura-title,
-  .split-text .letter {
+  .split-text .letter,
+  .glass-search,
+  .explore .filter-btn {
     opacity: 1;
     transform: none;
   }
