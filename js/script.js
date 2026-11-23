@@ -101,6 +101,16 @@ function describeWeatherCode(code) {
   return "Unknown";
 }
 
+function getScene(code) {
+  if (code === 0) return "clear";
+  if ([1, 2, 3].includes(code)) return "cloudy";
+  if ([45, 48].includes(code)) return "fog";
+  if (code >= 71 && code <= 77) return "snow";
+  if (code >= 95) return "storm";
+  if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) return "rainy";
+  return "cloudy";
+}
+
 /* ---------- 5. Season Logic ---------- */
 function getMood(temp, code) {
   const isRainy = (code >= 51 && code <= 67) || (code >= 80 && code <= 82) || code >= 95;
@@ -253,6 +263,7 @@ async function loadWeatherAndAura(city) {
     weatherHumidity.textContent = `Humidity: ${current.relative_humidity_2m}%`;
     weatherSeason.textContent = label;
     applyTheme(mood);
+    document.querySelector("#weather-scene").className = `weather-scene scene-${getScene(code)}`;
 
     loadAura(mood, season);
   } catch (err) {
